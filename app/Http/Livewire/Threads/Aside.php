@@ -14,13 +14,27 @@ class Aside extends Component
     public function getListeners()
     {
         return [
-            'echo-private:user.'.Auth::id().',Threads\\NewThreadEvent' => 'updateThreads',
+            'echo-private:user.'.Auth::id().',Threads\\NewThreadEvent' => 'prependThread',
+            'echo-private:user.'.Auth::id().',Threads\\ThreadUpdatedEvent' => 'updateThreads',
         ];
+    }
+
+    public function prependThread($payload)
+    {
+        $this->threads->prepend(Thread::find($payload['thread']['id']));
     }
 
     public function updateThreads($payload)
     {
-        $this->threads->prepend(Thread::find($payload['thread']['id']));
+        $thread_id = $payload['thread']['id'];
+
+        $this->threads = $this->threads->map(function ($thread) use ($thread_id) {
+            if ($thread->id == $thread_id) {
+                $thread = Auth::user()->threads()->find($thread_id);
+            }
+
+            return $thread;
+        });
     }
 
     public function mount($threads, $current = null)

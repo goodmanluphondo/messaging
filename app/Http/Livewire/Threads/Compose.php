@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Threads;
 
 use App\Events\Threads\NewMessageEvent;
+use App\Events\Threads\ThreadUpdatedEvent;
 use Livewire\Component;
 
 class Compose extends Component
@@ -34,6 +35,7 @@ class Compose extends Component
         }
 
         broadcast(new NewMessageEvent($message))->toOthers();
+        broadcast(new ThreadUpdatedEvent($this->thread))->toOthers();
 
         $this->emit('updateThread', $message->id);
 
