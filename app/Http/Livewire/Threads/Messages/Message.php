@@ -12,7 +12,7 @@ class Message extends Component
     {
         $this->message->delete();
 
-        $this->emit('messageDeleted', $this->message->id);
+        $this->emit('reloadMessages');
     }
 
     public function mount($message)

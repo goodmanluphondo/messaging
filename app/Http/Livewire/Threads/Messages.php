@@ -15,13 +15,18 @@ class Messages extends Component
     {
         return [
             "updateThread",
+            "reloadMessages",
             "echo-private:thread.{$this->thread},Threads\\NewMessageEvent" => "updateThreadFromBroadcast",
         ];
     }
 
+    public function reloadMessages()
+    {
+        $this->messages = Thread::find($this->thread)->messages()->get();
+    }
+
     public function updateThread($id){
         $this->messages->prepend(Message::find($id));
-        // $this->messages = Thread::where('id', $this->thread)->first()->messages()->latest()->get();
     }
 
     public function updateThreadFromBroadcast($payload){
