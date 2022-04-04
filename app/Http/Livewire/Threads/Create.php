@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Threads;
 
+use App\Events\Threads\NewThreadEvent;
 use App\Models\Threads\Thread;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -41,6 +42,8 @@ class Create extends Component
         ]);
 
         $thread->users()->sync($users);
+
+        broadcast(new NewThreadEvent($thread))->toOthers();
 
         return redirect()->route('threads.show', $thread);
     }

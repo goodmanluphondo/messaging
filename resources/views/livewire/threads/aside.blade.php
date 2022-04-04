@@ -24,10 +24,14 @@
                 @foreach ($threads as $thread)
                 <a href="{{ route('threads.show', $thread) }}">
                     <li
-                    @if(!optional($thread->pivot)->seen_at)
-                    class="relative bg-cyan-100 py-5 px-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600"
+                    @if(!empty($current) && $current->id === $thread->id)
+                        class="relative bg-cyan-100 py-5 px-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600"
                     @else
-                    class="relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600"
+                        @if(!optional($thread->pivot)->seen_at)
+                        class="relative bg-yellow-100 py-5 px-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600"
+                        @else
+                        class="relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600"
+                        @endif
                     @endif
                     >
                         @foreach ($thread->users as $user)
@@ -38,165 +42,6 @@
                 </a>
                 @endforeach
             @endif
-                {{-- <li class="relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600">
-                    <div class="flex justify-between space-x-3">
-                        <div class="min-w-0 flex-1">
-                        <a href="#" class="block focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900 truncate">Gloria Roberston</p>
-                            <p class="text-sm text-gray-500 truncate">Velit placeat sit ducimus non sed</p>
-                        </a>
-                        </div>
-                        <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">1d ago</time>
-                    </div>
-                    <div class="mt-1">
-                        <p class="line-clamp-2 text-sm text-gray-600">Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.</p>
-                    </div>
-                </li>
-
-                <li class="relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600">
-                    <div class="flex justify-between space-x-3">
-                        <div class="min-w-0 flex-1">
-                        <a href="#" class="block focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900 truncate">Virginia Abshire</p>
-                            <p class="text-sm text-gray-500 truncate">Nemo mollitia repudiandae adipisci explicabo optio consequatur tempora ut nihil</p>
-                        </a>
-                        </div>
-                        <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">1d ago</time>
-                    </div>
-                    <div class="mt-1">
-                        <p class="line-clamp-2 text-sm text-gray-600">Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.</p>
-                    </div>
-                </li>
-
-                <li class="relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600">
-                    <div class="flex justify-between space-x-3">
-                        <div class="min-w-0 flex-1">
-                        <a href="#" class="block focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900 truncate">Kyle Gulgowski</p>
-                            <p class="text-sm text-gray-500 truncate">Doloremque reprehenderit et harum quas explicabo nulla architecto dicta voluptatibus</p>
-                        </a>
-                        </div>
-                        <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">1d ago</time>
-                    </div>
-                    <div class="mt-1">
-                        <p class="line-clamp-2 text-sm text-gray-600">Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.</p>
-                    </div>
-                </li>
-
-                <li class="relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600">
-                    <div class="flex justify-between space-x-3">
-                        <div class="min-w-0 flex-1">
-                        <a href="#" class="block focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900 truncate">Hattie Haag</p>
-                            <p class="text-sm text-gray-500 truncate">Eos sequi et aut ex impedit</p>
-                        </a>
-                        </div>
-                        <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">1d ago</time>
-                    </div>
-                    <div class="mt-1">
-                        <p class="line-clamp-2 text-sm text-gray-600">Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.</p>
-                    </div>
-                </li>
-
-                <li class="relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600">
-                    <div class="flex justify-between space-x-3">
-                        <div class="min-w-0 flex-1">
-                        <a href="#" class="block focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900 truncate">Wilma Glover</p>
-                            <p class="text-sm text-gray-500 truncate">Quisquam veniam explicabo</p>
-                        </a>
-                        </div>
-                        <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">1d ago</time>
-                    </div>
-                    <div class="mt-1">
-                        <p class="line-clamp-2 text-sm text-gray-600">Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.</p>
-                    </div>
-                </li>
-
-                <li class="relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600">
-                    <div class="flex justify-between space-x-3">
-                        <div class="min-w-0 flex-1">
-                        <a href="#" class="block focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900 truncate">Dolores Morissette</p>
-                            <p class="text-sm text-gray-500 truncate">Est ratione molestiae modi maiores consequatur eligendi et excepturi magni</p>
-                        </a>
-                        </div>
-                        <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">1d ago</time>
-                    </div>
-                    <div class="mt-1">
-                        <p class="line-clamp-2 text-sm text-gray-600">Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.</p>
-                    </div>
-                </li>
-
-                <li class="relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600">
-                    <div class="flex justify-between space-x-3">
-                        <div class="min-w-0 flex-1">
-                        <a href="#" class="block focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900 truncate">Guadalupe Walsh</p>
-                            <p class="text-sm text-gray-500 truncate">Commodi deserunt aut veniam rem ipsam</p>
-                        </a>
-                        </div>
-                        <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">1d ago</time>
-                    </div>
-                    <div class="mt-1">
-                        <p class="line-clamp-2 text-sm text-gray-600">Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.</p>
-                    </div>
-                </li>
-
-                <li class="relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600">
-                    <div class="flex justify-between space-x-3">
-                        <div class="min-w-0 flex-1">
-                        <a href="#" class="block focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900 truncate">Jasmine Hansen</p>
-                            <p class="text-sm text-gray-500 truncate">Illo illum aut debitis earum</p>
-                        </a>
-                        </div>
-                        <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">1d ago</time>
-                    </div>
-                    <div class="mt-1">
-                        <p class="line-clamp-2 text-sm text-gray-600">Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.</p>
-                    </div>
-                </li>
-
-                <li class="relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600">
-                    <div class="flex justify-between space-x-3">
-                        <div class="min-w-0 flex-1">
-                        <a href="#" class="block focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900 truncate">Ian Volkman</p>
-                            <p class="text-sm text-gray-500 truncate">Qui dolore iste ut est cumque sed</p>
-                        </a>
-                        </div>
-                        <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">1d ago</time>
-                    </div>
-                    <div class="mt-1">
-                        <p class="line-clamp-2 text-sm text-gray-600">Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.</p>
-                    </div>
-                </li>
-
-                <li class="relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600">
-                    <div class="flex justify-between space-x-3">
-                        <div class="min-w-0 flex-1">
-                        <a href="#" class="block focus:outline-none">
-                            <span class="absolute inset-0" aria-hidden="true"></span>
-                            <p class="text-sm font-medium text-gray-900 truncate">Rafael Klocko</p>
-                            <p class="text-sm text-gray-500 truncate">Aut sed aut illum delectus maiores laboriosam ex</p>
-                        </a>
-                        </div>
-                        <time datetime="2021-01-27T16:35" class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">1d ago</time>
-                    </div>
-                    <div class="mt-1">
-                        <p class="line-clamp-2 text-sm text-gray-600">Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.</p>
-                    </div>
-                </li> --}}
             </ul>
         </nav>
     </div>
